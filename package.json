@@ -1,0 +1,64 @@
+{
+  "name": "chromerx",
+  "version": "0.0.1-alpha",
+  "description": "Chrome extension store",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write src/**/*.ts src/**/*.js",
+    "lint": "eslint",
+    "test": "jest --config jestconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christianopaets/chromerx.git"
+  },
+  "keywords": [
+    "chrome",
+    "extension",
+    "store",
+    "redux",
+    "ngrx",
+    "effects",
+    "actions",
+    "action",
+    "reducer",
+    "typedi",
+    "rxjs",
+    "chrome"
+  ],
+  "author": "Christian Opaets",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/christianopaets/chromerx/issues"
+  },
+  "homepage": "https://github.com/christianopaets/chromerx#readme",
+  "devDependencies": {
+    "@types/chrome": "^0.0.107",
+    "@types/jest": "^26.0.23",
+    "@types/lodash": "^4.14.170",
+    "eslint": "^7.27.0",
+    "eslint-config-prettier": "^8.3.0",
+    "jest": "^27.0.1",
+    "prettier": "^2.3.0",
+    "ts-jest": "^27.0.0",
+    "typescript": "^4.2.4"
+  },
+  "peerDependencies": {
+    "reflect-metadata": "^0.1.13"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "rxjs": "^7.1.0",
+    "typedi": "^0.10.0"
+  }
+}
