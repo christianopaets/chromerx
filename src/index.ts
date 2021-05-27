@@ -3,6 +3,7 @@ export * from './interfaces/action';
 export * from './interfaces/message.interface';
 export * from './services/tabs.service';
 export * from './services/messages.service';
+export * from './services/storage.service';
 export * from './actions';
 export * from './app.injector';
 export * from './effect';
