@@ -1,6 +1,6 @@
 # chromerx
-Chrome extension store
+### Chrome extension store
 
-Inpired by NgRX Store
+Inspired by NgRX Store
 
 Docs and examples will be soon
