@@ -15,4 +15,5 @@ export class AuthModule extends StoreModule<IAuthState> {
     super(authStore, authEffects);
   }
 }
+
 ```
