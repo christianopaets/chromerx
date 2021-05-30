@@ -1,5 +1,5 @@
 # How to use
 
-[Structure](_structure.md)
+[Structure](./structure.md)
 
-[Actions](_actions.md)
+[Actions](./actions.md)
