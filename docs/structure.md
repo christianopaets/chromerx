@@ -1,4 +1,4 @@
-# What structure do I prrefer
+# What structure do I prefer
 
 - auth
     - store
