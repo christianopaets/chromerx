@@ -3,4 +3,6 @@
 
 Inspired by NgRX Store
 
-Docs and examples will be soon
+[Here are docs](https://christianopaets.github.io/chromerx/)
+
+[Here is example](https://github.com/christianopaets/chromerx_example)
