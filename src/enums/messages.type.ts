@@ -1,4 +1,4 @@
 export enum TMessagesType {
   StoreAction = 'StoreAction',
-  StateChange = 'StateChange'
+  StateChange = 'StateChange',
 }
