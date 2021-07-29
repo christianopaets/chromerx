@@ -34,10 +34,15 @@ export class MessagesService {
       );
   }
 
-  sendCallback<T = string, C = unknown>(type: T, callback: C): Observable<void> {
-    return fromEventPattern<[IMessage<T>, unknown, (res: C) => void]>(chrome.runtime.onMessage.addListener.bind(chrome.runtime.onMessage))
-      .pipe(filter<[IMessage<T>, unknown, (res: C) => void]>(([message]) => message.type === type))
-      .pipe(map(([, , sendResponse]) => sendResponse(callback)));
+  sendCallback<T = string, C = unknown>(type: T, callback: (...args) => Promise<C>): void;
+  sendCallback<T = string, B = Exclude<T, (...args: unknown[]) => unknown>>(type: T, callback: B): Observable<void>;
+  sendCallback(type: string, callback: never): Observable<void> {
+    if (typeof callback === 'function') {
+      this._proceedAsyncCallback(type, callback);
+      return;
+    } else {
+      return this._proceedImmediateCallback(type, callback);
+    }
   }
 
   getMessageRoot$<T = string, D = unknown>(): Observable<IMessage<T, D>> {
@@ -59,5 +64,21 @@ export class MessagesService {
 
   protected _createMessage<T, D>(type: T, data: D): IMessage<T, D> {
     return { type, data };
+  }
+
+  protected _proceedImmediateCallback<T, C>(type: T, callback: C): Observable<void> {
+    return fromEventPattern(chrome.runtime.onMessage.addListener.bind(chrome.runtime.onMessage))
+      // @ts-ignore
+      .pipe(filter<[IMessage<T>, unknown, (res: C) => void]>(([message]) => message.type === type))
+      .pipe(map(([, , sendResponse]) => sendResponse(callback)));
+  }
+
+  protected _proceedAsyncCallback<T = string, C = unknown>(type: T, callback: (...args: unknown[]) => Promise<C>): void {
+    chrome.runtime.onMessage.addListener((message: IMessage<T>, sender: unknown, sendResponse: (res: unknown) => void) => {
+      if (message.type === type) {
+        callback.call(this, message.data).then(res => sendResponse(res));
+      }
+      return true;
+    });
   }
 }
